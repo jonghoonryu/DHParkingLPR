@@ -1,0 +1,104 @@
+﻿<2025-12-23 화요일>
+■ 헬스체크 에러 메시지박스 처리
+
+※ 참고사항
+■ 집이나 사내에서 접속할 때
+ ▶ 서버LPR 주소 http://172.31.255.27:8000
+ ▶ TPMS_IP = 172.31.23.110
+ ▶ TPMS_PORT = 80
+■ 서초구에서 접속할 때
+ ▶ 서버LPR 주소 http://211.58.205.154:8000
+ ▶ TPMS_IP = 211.58.205.154
+ ▶ TPMS_PORT = 2380
+
+<2025-12-19 금요일>
+■ 다래파크텍, 이미지파일명 맨뒤에 4자리가 XXXX인 경우 예외처리
+ ▶ 번호판 4자리가 XXXX인 경우는 버림
+    // 다래파크텍인 경우
+    if (ParkingVendor.ParkingVendors.DarraeParktech == ParkingVendor.FromKorean(G.parkingLotInfo[_nIdxOfParkingLot].ParkingVendor))
+■ 메인화면에 벤더 표시
+■ iParking 적용
+
+<2025-12-17 수요일>
+□ 동양파킹 적용 검토
+
+<2025-12-15 월요일>
+■ 전전방 에러(출구가 입구 dgv에 표시) 해결
+
+<2025-12-13 토요일>
+■ Login token 갱신 적용 확인
+■ 로그상으로 사진업로드, 입차등록이 성공했는데, TPMS에서 조회안되는 문제 발생
+ ▶ 입차현황에서는 출차시간이 존재하지 않는 데이터만 표출됨.
+■ ev.ParkingLotName값이 비어 있는 상태로 dgv에 표시되는 경우
+ ▶ ex) "입구" ---> 수정완료
+
+<2025-12-11 금요일>
+■ Login token 유효 시간 만료…재연장 방법 보완 필요
+ ▶ TPMS에 API 전송 시 마다 리턴되는 Token값을 업데이트한다.
+    ... Tpms.GetTpmsAuthToken(); ...실패
+ ▶ 401이면: 토큰 갱신 후 1회 재시도
+   if (resp.StatusCode == HttpStatusCode.Unauthorized)
+
+■ 입출차Gate에 아래 정보 표시
+ ▶ $"{ev.nIdxOfParkingLot + 1}{ev.InOutType.ToString()}"
+□ Pairing 실패 발견…보완 방안 수립 필요
+■ PostgreSQL 코드 주석 처리
+
+<2025-12-05 금요일>
+■ dgv의 선택된 row를 클릭했을때, dgvIn_SelectionChanged이벤트 발생하게 수정
+
+<2025-12-03 수요일>
+■ 사진 저장
+■ DB에 입출차 기록
+■ 위탁주차장 다래파크텍 공인ip 등록
+□ TPMS 연동 여부 설정 가능하게 구현
+□ 메인화면 단위주차장별 사용자컨트롤에 UI 갱신 기능 구현 
+□ 구글 Teachable Machine 적용
+
+<2025-12-03 수요일>
+■ Dual/Single, In/Out Watcher 기능 구현
+■ n개 Watcher 기능 구현
+
+<2025-12-02 화요일>
+■ 입출차 사진등록
+
+<2025-12-01 월요일>
+■ 입차등록, 출차등록 구현
+■ 환경설정: TPMS ip, port, empNo, 주차가능대수, 전체면수
+■ 메인화면: TPMS화면과 동일한 사용자정의컨트롤 구현
+
+※ LPR 서버 URL
+url = "http://172.20.100.97:8000/recognize";//아산용
+url = "http://172.31.255.27:8000/recognize";//사내용
+
+<2025-11-30 일요일>
+■ HttpServer 헬스체크 전송  
+
+<2025-11-29 토요일>
+■ Dual LPR 처리 기능 구현
+■ 엑셀폴더 열기 버튼 추가 
+ ▶ 설정화면에도 관련내용추가
+
+<2025-11-27 목요일>
+■ WebSocket 수신
+
+<2025-11-26 수요일>
+■ HttpServer, WebSocket 통신 구현 및 연결 테스트
+ ▶ "172.31.23.110:80";//서귀포 테스트 서버        
+■ 오늘의 Log파일 열기 버튼 구현
+
+<2025-11-24 월요일>
+■ ucParkingLot 사용자정의 컨트롤 구현
+■ LPR이미지 폴더 열기
+
+<2025-11-23 일요일>
+■ 다래텍 LPR이미지 파일은 2개가 생성됨
+ ▶ 이미지 해상도가 1280x960이 아니면 리턴하게 한다.
+■ dgv에 추가되면, 이미지 갱신 안되는 문제 해결 
+
+<2025-11-21 금요일>
+■ LPR PC 폴더에 파일 생성 모니터링
+ ▶ n개의 LPR처리 루틴 구현
+ ▶ 진입dgv, 진출dgv에 데이터 추가
+ ▶ 서버 LPR 연동해서 번호인식 수행
+ 
